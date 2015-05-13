@@ -12,9 +12,6 @@ public class ActionFactory {
 		
 	}
 	public static ActionFactory getInstance(){
-		/*if(instance==null){
-			instance=new ActionFactory();
-		}*/
 		return instance;
 	}
 	public action getAction(String a){

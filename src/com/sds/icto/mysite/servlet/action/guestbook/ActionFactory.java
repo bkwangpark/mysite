@@ -1,7 +1,5 @@
 package com.sds.icto.mysite.servlet.action.guestbook;
 
-import com.sds.icto.mysite.servlet.action.main.IndexAction;
-
 import com.sds.icto.web.action;
 
 public class ActionFactory {
@@ -13,13 +11,18 @@ public class ActionFactory {
 		
 	}
 	public static ActionFactory getInstance(){
-		/*if(instance==null){
-			instance=new ActionFactory();
-		}*/
 		return instance;
 	}
 	public action getAction(String a){
-		
-		return null;
+		action action=null;
+		if("insert".equals(a)){
+			action = new InsertAction();
+		}else if("delete".equals(a)){
+			action = new DeleteAction();
+		}
+		if(action==null){
+			action = new IndexAction();
+		}
+		return action;
 	}
 }
