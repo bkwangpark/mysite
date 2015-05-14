@@ -1,10 +1,17 @@
-<!DOCTYPE html>
+<%@page import="com.sds.icto.mysite.dao.GuestBookDao"%>
+<%@page import="com.sds.icto.mysite.vo.GuestBookVo"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.util.List" %>
+<%
+GuestBookDao dao=new GuestBookDao();
+List<GuestBookVo> list=dao.fetchList();
+%>
+<!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Mysite_Board</title>
+<title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="/mysite/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
