@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.sds.icto.mysite.dao.GuestBookDao;
-import com.sds.icto.mysite.dao.MemberDao;
-import com.sds.icto.mysite.vo.GuestBookVo;
+import com.sds.icto.mysite.dao.BoardDao;
+import com.sds.icto.mysite.vo.BoardVo;
 import com.sds.icto.mysite.vo.MemberVo;
 import com.sds.icto.web.action;
 
@@ -20,18 +20,26 @@ public class InsertAction implements action {
 			throws SQLException, ClassNotFoundException, ServletException,
 			IOException {
 		// TODO Auto-generated method stub
-		String name = request.getParameter("name");
-		String password = request.getParameter("pass");
+		String title = request.getParameter("title");
 		String context = request.getParameter("content");
 		
-		GuestBookVo vo = new GuestBookVo();
-		vo.setName(name);
-		vo.setPassword(password);
-		vo.setContext(context);
+		HttpSession session = request.getSession();
+		MemberVo vo1 = (MemberVo)session.getAttribute("authMember");
 		
-		GuestBookDao dao = new GuestBookDao();
+		Long no= vo1.getNo();
+		String name= vo1.getName();
+	
+		
+		BoardVo vo = new BoardVo();
+		vo.setTitle(title);
+		vo.setContext(context);
+		vo.setMem_no(no);
+		vo.setMem_name(name);
+		
+		
+		BoardDao dao = new BoardDao();
 		dao.insert(vo);
-		response.sendRedirect("/mysite/guestbook");
+		
+		response.sendRedirect("/mysite/board");
 	}
-
 }

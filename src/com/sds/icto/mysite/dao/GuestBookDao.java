@@ -32,7 +32,7 @@ public class GuestBookDao {
 		Connection conn = getConnection();
 
 		// 2. Statement 준비, SQL문 날리기
-		String sql = " insert into guestbook values(guestbook_seq.nextval, ?, ?, ?)";
+		String sql = " insert into guestbook values(guestbook_seq.nextval, ?, ?, ?, sysdate)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 
 		// 3. binding

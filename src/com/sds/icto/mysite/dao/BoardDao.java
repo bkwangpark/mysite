@@ -28,10 +28,10 @@ public class BoardDao {
 	public void insert(BoardVo vo) throws SQLException, ClassNotFoundException {
 		// 1. Connection 생성
 		Connection conn = getConnection();
-
+		
 		// 2. Statement 준비, SQL문 날리기
 		String sql = "insert into board"
-				+ " values(guestbook_seq.nextval, ?, ?, ?, ?, 1, sysdate)";
+				+ " values(board_no_seq.nextval, ?, ?, ?, ?, 1, sysdate)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 
 		// 3. binding
@@ -39,7 +39,7 @@ public class BoardDao {
 		pstmt.setString(2, vo.getContext());
 		pstmt.setLong(3, vo.getMem_no());
 		pstmt.setString(4, vo.getMem_name());
-
+		
 		// 4. query 실행
 		pstmt.executeUpdate();
 		// 5. 자원정리
@@ -47,8 +47,7 @@ public class BoardDao {
 		conn.close();
 	}
 
-	public void delete(BoardVo vo) throws SQLException,
-			ClassNotFoundException {
+	public void delete(BoardVo vo) throws SQLException, ClassNotFoundException {
 		// 1. Connection 생성
 		Connection conn = getConnection();
 
@@ -80,13 +79,13 @@ public class BoardDao {
 
 		// 3. db가져오기
 		while (rs.next()) {
-			Long no=rs.getLong(1);
+			Long no = rs.getLong(1);
 			String title = rs.getString(2);
 			String context = rs.getString(3);
-			Long mem_no=rs.getLong(4);
-			String mem_name=rs.getString(5);
-			String date=rs.getString(7);
-			
+			Long mem_no = rs.getLong(4);
+			String mem_name = rs.getString(5);
+			String date = rs.getString(7);
+
 			BoardVo vo = new BoardVo();
 			vo.setNo(no);
 			vo.setTitle(title);
@@ -104,5 +103,39 @@ public class BoardDao {
 		conn.close();
 
 		return list;
+	}
+
+	public BoardVo show(BoardVo vo) throws SQLException, ClassNotFoundException {
+		// 1. Connection 생성
+		Connection conn = getConnection();
+		// 2. Statement 준비, SQL문 날리기
+		String sql = "select * FROM BOARD where no=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+
+		pstmt.setLong(1, vo.getNo());
+
+		ResultSet rs = pstmt.executeQuery();
+		// 3. db가져오기
+		rs.next();
+		Long no = rs.getLong(1);
+		String title = rs.getString(2);
+		String context = rs.getString(3);
+		Long mem_no = rs.getLong(4);
+		String mem_name = rs.getString(5);
+		String date = rs.getString(7);
+
+		vo.setNo(no);
+		vo.setTitle(title);
+		vo.setContext(context);
+		vo.setMem_no(mem_no);
+		vo.setMem_name(mem_name);
+		vo.setDate(date);
+
+		// 4. 자원정리
+		rs.close();
+		pstmt.close();
+		conn.close();
+
+		return vo;
 	}
 }

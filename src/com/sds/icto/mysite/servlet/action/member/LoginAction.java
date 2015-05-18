@@ -38,7 +38,7 @@ public class LoginAction implements action {
 		//인증처리(로그인처리)
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authMember", authMember);
-		response.sendRedirect("/mysite/");
+		response.sendRedirect("/mysite/index");
 	}
 
 }

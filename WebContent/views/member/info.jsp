@@ -27,7 +27,7 @@
 					<label class="block-label">성별</label>
 					<input name="gender" type="text" value="<%=authMember.getGender()%>">
 					<br>
-					<a href="/mysite/">메인으로</a>
+					<a href="/mysite/index">메인으로</a>
 				</form>
 			</div>
 		</div>

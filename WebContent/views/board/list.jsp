@@ -1,65 +1,62 @@
-<%@page import="com.sds.icto.mysite.dao.GuestBookDao"%>
-<%@page import="com.sds.icto.mysite.vo.GuestBookVo"%>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="java.util.List" %>
+<%@page import="java.util.List"%>
+<%@page import="com.sds.icto.mysite.dao.BoardDao"%>
+<%@page import="com.sds.icto.mysite.vo.BoardVo"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-GuestBookDao dao=new GuestBookDao();
-List<GuestBookVo> list=dao.fetchList();
+BoardDao dao=new BoardDao();
+List<BoardVo> list=dao.fetchList();
 %>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
 		<div id="header">
-			<jsp:include page="/views/include/header.jsp" flush="false"/>
+			<c:import url="/views/include/header.jsp" />
 		</div>
 		<div id="content">
-			<div id="guestbook">
-				<form action="/mysite/guestbook" method="post">
-					<input type="hidden" name="a" value="insert">
-					<table>
-						<tr>
-							<td>이름</td><td><input type="text" name="name"></td>
-							<td>비밀번호</td><td><input type="password" name="pass"></td>
-						</tr>
-						<tr>
-							<td colspan=4><textarea name="content" id="content"></textarea></td>
-						</tr>
-						<tr>
-							<td colspan=4 align=right>
-							<input type="submit" VALUE=" 확인 "></td>
-						</tr>
-					</table>
+			<div id="board">
+				<form id="search_form" action="" method="post">
+					<input type="text" id="kwd" name="kwd" value="">
+					<input type="submit" value="찾기">
 				</form>
-				<ul>
-					<li>
-						<table>
-						<%for(GuestBookVo vo : list){ %>
-							<tr>
-								<td><%=vo.getNo() %></td>
-								<td><%=vo.getName() %></td>
-								<td><a href="/mysite/views/guestbook/deleteform.jsp?no=<%=vo.getNo()%>">삭제</a></td>
-							</tr>
-							<tr>
-								<td colspan=4><%=vo.getContext() %></td>
-							</tr>
-							<%} %>
-						</table>
-						<br>
-					</li>
-				</ul>
+				<table class="tbl-ex">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>글쓴이</th>
+						<th>조회수</th>
+						<th>작성일</th>
+						<th>&nbsp;</th>
+					</tr>
+					<%for(BoardVo vo : list){ %>				
+					<tr>
+						<td><%=vo.getNo() %></td>
+						<td><a href="/mysite/board?a=show&no=<%=vo.getNo()%>"><%=vo.getTitle() %></a></td>
+						<td><%=vo.getMem_name() %></td>
+						<td>1</td>
+						<td><%=vo.getDate() %></td>
+						<td>
+							<a href="" class="del">삭제</a>
+						</td>
+					</tr>
+					<%} %>			
+				</table>
+				<div class="bottom">
+					<a href="/mysite/views/board/write.jsp" id="new-book">글쓰기</a>
+				</div>				
 			</div>
 		</div>
 		<div id="navigation">
-			<jsp:include page="/views/include/navigation.jsp"/>
+			<c:import url="/views/include/navigation_board.jsp" />
 		</div>
 		<div id="footer">
-			<p>(c)opyright 2014 </p>
+			<c:import url="/views/include/footer.jsp" />
 		</div>
 	</div>
 </body>
