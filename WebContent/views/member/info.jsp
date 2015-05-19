@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fn"%>
 <%@ page import="com.sds.icto.mysite.vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
@@ -19,13 +22,13 @@
 			<div id="user">
 				<form id="join-form" name="joinForm" method="post" action="/mysite/member">
 					<label class="block-label" for="name">이름</label>
-					<input id="name" name="name" type="text" value="<%=authMember.getName()%>">
+					<input id="name" name="name" type="text" value="${authMember.name}">
 
 					<label class="block-label" for="email">이메일</label>
-					<input id="email" name="email" type="text" value="<%=authMember.getEmail()%>">
+					<input id="email" name="email" type="text" value="${authMember.email}">
 					
 					<label class="block-label">성별</label>
-					<input name="gender" type="text" value="<%=authMember.getGender()%>">
+					<input name="gender" type="text" value="${authMember.gender}">
 					<br>
 					<a href="/mysite/index">메인으로</a>
 				</form>

@@ -25,6 +25,7 @@ public class ShowAction implements action {
 		vo.setNo(no);
 		
 		BoardDao dao= new BoardDao();
+		dao.updateView(vo);
 		
 		BoardVo vo1 = new BoardVo();
 		vo1=dao.show(vo);

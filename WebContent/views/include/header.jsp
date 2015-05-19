@@ -15,9 +15,6 @@
 	<li><a href="/mysite/member?a=uinfo">회원정보수정</a><li>
 	<li><a href="/mysite/member?a=logout">로그아웃</a><li>
 	<li>${sessionScope.authMember.name }님 안녕하세요 ^^;</li>
-	세션의 이름 ${authMember.name}
-	비번 ${authMember.password}
-	이메일 ${authMember.email}
 	</c:otherwise>
 	</c:choose>
 </ul>

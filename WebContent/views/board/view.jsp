@@ -36,7 +36,7 @@
 				<div class="bottom">
 					<a href="/mysite/board">글목록</a>
 					<c:if test="${vo.mem_no==authMember.no }">
-					<a href="/mysite/views/board/modify.jsp?a=${vo.no}">글수정</a>
+					<a href="/mysite/board?a=modify&no=${vo.no}">글수정</a>
 					</c:if>
 				</div>
 			</div>

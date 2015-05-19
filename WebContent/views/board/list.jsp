@@ -1,12 +1,6 @@
 <%@page import="java.util.List"%>
-<%@page import="com.sds.icto.mysite.dao.BoardDao"%>
-<%@page import="com.sds.icto.mysite.vo.BoardVo"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-BoardDao dao=new BoardDao();
-List<BoardVo> list=dao.fetchList();
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +15,8 @@ List<BoardVo> list=dao.fetchList();
 		</div>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
+				<form id="search_form" action="/mysite/board?a=find" method="post">
+					<input type="text" id="key" name="key" value="">
 					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -34,18 +28,20 @@ List<BoardVo> list=dao.fetchList();
 						<th>작성일</th>
 						<th>&nbsp;</th>
 					</tr>
-					<%for(BoardVo vo : list){ %>				
+					<c:forEach items="${list }" var="vo">
 					<tr>
-						<td><%=vo.getNo() %></td>
-						<td><a href="/mysite/board?a=show&no=<%=vo.getNo()%>"><%=vo.getTitle() %></a></td>
-						<td><%=vo.getMem_name() %></td>
-						<td>1</td>
-						<td><%=vo.getDate() %></td>
+						<td>${vo.no }</td>
+						<td><a href="/mysite/board?a=show&no=${vo.no }">${vo.title }</a></td>
+						<td>${vo.mem_name }</td>
+						<td>${vo.view_cnt }</td>
+						<td>${vo.date }</td>
 						<td>
-							<a href="" class="del">삭제</a>
+						<c:if test="${vo.mem_no==authMember.no }"> 
+							<a href="/mysite/board?a=delete&no=${vo.no }&mem_no=${authMember.no}" class="del">삭제</a>
+						</c:if>
 						</td>
 					</tr>
-					<%} %>			
+					</c:forEach>
 				</table>
 				<div class="bottom">
 					<a href="/mysite/views/board/write.jsp" id="new-book">글쓰기</a>

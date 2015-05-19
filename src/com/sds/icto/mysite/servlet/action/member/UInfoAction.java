@@ -16,7 +16,7 @@ public class UInfoAction implements action {
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ClassNotFoundException, ServletException,
 			IOException {
-		// TODO Auto-generated method stub
+		
 		WebUtil.forward("/views/member/info.jsp", request, response);
 	}
 

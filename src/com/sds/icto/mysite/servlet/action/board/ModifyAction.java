@@ -9,24 +9,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sds.icto.mysite.dao.BoardDao;
 import com.sds.icto.mysite.vo.BoardVo;
+import com.sds.icto.web.WebUtil;
 import com.sds.icto.web.action;
 
-public class DeleteAction implements action {
+public class ModifyAction implements action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ClassNotFoundException, ServletException,
 			IOException {
-		Long no = Long.parseLong(request.getParameter("no"));
-		Long mem_no = Long.parseLong(request.getParameter("mem_no"));
+		// TODO Auto-generated method stub
 		
-		BoardVo vo = new BoardVo();
-		vo.setNo(no);
-		vo.setMem_no(mem_no);
+		Long no = Long.parseLong(request.getParameter("no"));
+		
+		BoardVo vo2 = new BoardVo();
+		vo2.setNo(no);
 		
 		BoardDao dao = new BoardDao();
-		dao.delete(vo);
-		response.sendRedirect("/mysite/board");
+		BoardVo vo1 = new BoardVo();
+		vo1=dao.show(vo2);
+		
+		request.setAttribute("vo", vo1);
+	
+		WebUtil.forward("/views/board/modify.jsp", request, response);
 	}
 
 }

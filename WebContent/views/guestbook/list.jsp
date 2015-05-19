@@ -1,11 +1,10 @@
-<%@page import="com.sds.icto.mysite.dao.GuestBookDao"%>
-<%@page import="com.sds.icto.mysite.vo.GuestBookVo"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fn"%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
-<%
-GuestBookDao dao=new GuestBookDao();
-List<GuestBookVo> list=dao.fetchList();
-%>
+
 <!doctype html>
 <html>
 <head>
@@ -38,19 +37,19 @@ List<GuestBookVo> list=dao.fetchList();
 				</form>
 				<ul>
 					<li>
-						<table>
-						<%for(GuestBookVo vo : list){ %>
-							<tr>
-								<td><%=vo.getNo() %></td>
-								<td><%=vo.getName() %></td>
-								<td><a href="/mysite/views/guestbook/deleteform.jsp?no=<%=vo.getNo()%>">삭제</a></td>
-							</tr>
-							<tr>
-								<td colspan=4><%=vo.getContext() %></td>
-							</tr>
-							<%} %>
-						</table>
-						<br>
+						<c:forEach items="${list }" var="vo">
+							<table>
+								<tr>
+									<td>${vo.no }</td>
+									<td>${vo.name }</td>
+									<td><a
+										href="/mysite/views/guestbook/deleteform.jsp?no=${vo.no}">삭제</a></td>
+								</tr>
+								<tr>
+									<td colspan=4>${vo.context }</td>
+								</tr>
+							</table>
+						</c:forEach> <br>
 					</li>
 				</ul>
 			</div>
